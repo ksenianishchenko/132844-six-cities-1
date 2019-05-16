@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import PlacesList from "./places-list.jsx";
 
 const places = [
   {
@@ -17,11 +17,11 @@ const places = [
   },
 ];
 
-it(`app renders correctly`, () => {
+it(`List of places renders correctly`, () => {
   const tree = renderer
-  .create(<App
+  .create(<PlacesList
     places = {places}
-  />).toJSON();
+  />);
 
   expect(tree).toMatchSnapshot();
 });
