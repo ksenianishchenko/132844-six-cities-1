@@ -11,6 +11,7 @@ it(`Cities list renders correctly`, () => {
   .create(<CitiesList
     cities = {cities}
     onclick = {() => {}}
+    activeElementIndex = {5}
   />);
 
   expect(tree).toMatchSnapshot();

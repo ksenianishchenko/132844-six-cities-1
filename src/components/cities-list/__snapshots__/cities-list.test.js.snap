@@ -11,8 +11,9 @@ exports[`Cities list renders correctly 1`] = `
       className="locations__item"
     >
       <a
-        className="locations__item-link tabs__item"
+        className="locations__item-link tabs__item tabs__item--"
         href="#"
+        id="moscow"
         onClick={[Function]}
       >
         <span>

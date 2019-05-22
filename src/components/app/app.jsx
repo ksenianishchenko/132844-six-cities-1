@@ -46,6 +46,7 @@ class App extends PureComponent {
             onclick = {(activeCity) => {
               getCityOffers(activeCity, places);
             }}
+            activeElementIndex = {activeCityIndex}
           /></div>
         <div className="cities__places-wrapper">
           <div className="cities__places-container container">
