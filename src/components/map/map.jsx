@@ -9,7 +9,7 @@ class Map extends PureComponent {
 
   componentDidMount() {
     const {places} = this.props;
-    const markersData = this.getMarkersLatLang(places);
+    const markersData = this._getMarkersLatLang(places);
     this.mapCenter = [52.38333, 4.9];
     this.icon = L.icon({
       iconUrl: `img/map-pin.svg`,
@@ -32,11 +32,17 @@ class Map extends PureComponent {
     this.updateMarkers(markersData);
   }
 
+  componentDidUpdate() {
+    const {places} = this.props;
+    const markersData = this._getMarkersLatLang(places);
+    this.updateMarkers(markersData);
+  }
+
   render() {
     return <section id="map" className="cities__map map"></section>;
   }
 
-  getMarkersLatLang(places) {
+  _getMarkersLatLang(places) {
     const markersArray = [];
     places.map((it) => {
       markersArray.push(it.latLang);
