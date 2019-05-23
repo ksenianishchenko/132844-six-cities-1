@@ -8,13 +8,12 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {places} = this.props;
-    const markersData = this._getMarkersLatLang(places);
-    this.mapCenter = [52.38333, 4.9];
+    const {cityCoordinates, offers} = this.props;
+    const markersData = this._getMarkersLatLang(offers);
+    this.mapCenter = cityCoordinates;
     this.icon = L.icon({
       iconUrl: `img/map-pin.svg`,
-      iconSize: [30, 30],
-      center: this.mapCenter
+      iconSize: [30, 30]
     });
 
     this.map = L.map(`map`, {
@@ -33,9 +32,16 @@ class Map extends PureComponent {
   }
 
   componentDidUpdate() {
-    const {places} = this.props;
-    const markersData = this._getMarkersLatLang(places);
+    const {offers, cityCoordinates} = this.props;
+    this.mapCenter = cityCoordinates;
+    this.map.panTo(this.mapCenter);
+    const markersData = this._getMarkersLatLang(offers);
     this.updateMarkers(markersData);
+  }
+
+  componentWillUnmount() {
+    this.map.remove();
+    this.map = null;
   }
 
   render() {
@@ -59,7 +65,8 @@ class Map extends PureComponent {
 }
 
 Map.propTypes = {
-  places: PropTypes.array.isRequired
+  offers: PropTypes.array.isRequired,
+  cityCoordinates: PropTypes.array.isRequired
 };
 
 export default Map;

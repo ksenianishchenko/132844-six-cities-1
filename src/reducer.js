@@ -1,9 +1,19 @@
+import offers from "./mocks/offers.js";
+
 const initialState = {
-  activeCityIndex: 0
+  activeCityIndex: 0,
+  offers
 };
 
 const actionsType = {
   CHANGE_CITY: `CHANGE_CITY`
+};
+
+const ActionCreators = {
+  changeCity: (index) => ({
+    type: `CHANGE_CITY`,
+    payload: index,
+  })
 };
 
 
@@ -17,4 +27,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer};
+export {reducer, ActionCreators};

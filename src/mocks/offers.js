@@ -1,6 +1,7 @@
 const offers = [
   {
     city: `Paris`,
+    cityCoordinates: [48.862824, 2.341914],
     offers: [{
       pic: `img/apartment-01.jpg`,
       title: `Beautiful & luxurious apartment at great location`,
@@ -32,6 +33,7 @@ const offers = [
   },
   {
     city: `Cologne`,
+    cityCoordinates: [50.941260, 6.957391],
     offers: [{
       pic: `img/apartment-01.jpg`,
       title: `Beautiful & luxurious apartment at great location`,
@@ -49,6 +51,7 @@ const offers = [
   },
   {
     city: `Brussels`,
+    cityCoordinates: [50.848023, 4.351868],
     offers: [{
       pic: `img/apartment-02.jpg`,
       title: `Beautiful & luxurious apartment at great location`,
@@ -66,6 +69,7 @@ const offers = [
   },
   {
     city: `Amsterdam`,
+    cityCoordinates: [52.372671, 4.900071],
     offers: [{
       pic: `img/apartment-01.jpg`,
       title: `Beautiful & luxurious apartment at great location`,
@@ -83,6 +87,7 @@ const offers = [
   },
   {
     city: `Humburg`,
+    cityCoordinates: [53.546681, 9.995155],
     offers: [{
       pic: `img/apartment-02.jpg`,
       title: `Beautiful & luxurious apartment at great location`,
@@ -107,6 +112,7 @@ const offers = [
   },
   {
     city: `Dusseldorf`,
+    cityCoordinates: [51.233227, 6.784895],
     offers: [{
       pic: `img/apartment-01.jpg`,
       title: `Beautiful & luxurious apartment at great location`,

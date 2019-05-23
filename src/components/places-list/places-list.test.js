@@ -21,7 +21,7 @@ it(`List of places renders correctly`, () => {
   const tree = renderer
   .create(<PlacesList
     places = {places}
-  />);
+  />).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

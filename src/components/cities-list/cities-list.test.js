@@ -12,7 +12,7 @@ it(`Cities list renders correctly`, () => {
     cities = {cities}
     onclick = {() => {}}
     activeElementIndex = {5}
-  />);
+  />).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

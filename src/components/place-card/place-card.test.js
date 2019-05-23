@@ -13,7 +13,7 @@ it(`Place card renders correctly`, () => {
   const tree = renderer
   .create(<PlaceCard
     place = {place}
-  />);
+  />).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
