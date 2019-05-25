@@ -6,7 +6,7 @@ class PlacesList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      activeCardTitle: ``
+      activeCardTitle: ``,
     };
 
     this._getActiveCard = this._getActiveCard.bind(this);
@@ -34,12 +34,7 @@ class PlacesList extends PureComponent {
 }
 
 PlacesList.propTypes = {
-  places: PropTypes.arrayOf(PropTypes.shape({
-    pic: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    details: PropTypes.string.isRequired,
-  })).isRequired,
+  places: PropTypes.array.isRequired,
   onclick: PropTypes.func
 };
 

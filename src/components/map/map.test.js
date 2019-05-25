@@ -9,7 +9,10 @@ it(`Map renders correctly`, () => {
   ];
 
   const tree = renderer.create(
-      <Map places = {markers} />
+      <Map
+        offers = {markers}
+        cityCoordinates = {[48.862824, 2.341914]}
+      />
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
