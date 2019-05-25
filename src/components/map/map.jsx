@@ -15,20 +15,21 @@ class Map extends PureComponent {
       iconUrl: `img/map-pin.svg`,
       iconSize: [30, 30]
     });
+    setTimeout(() => {
+      this.map = L.map(`map`, {
+        center: this.mapCenter,
+        zoom: 11,
+        zoomControl: false,
+        marker: true,
+        layers: [
+          L.tileLayer(`http://{s}.tile.osm.org/{z}/{x}/{y}.png`, {
+            attribution: `&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`
+          })],
+      });
 
-    this.map = L.map(`map`, {
-      center: this.mapCenter,
-      zoom: 12,
-      zoomControl: false,
-      marker: true,
-      layers: [
-        L.tileLayer(`http://{s}.tile.osm.org/{z}/{x}/{y}.png`, {
-          attribution: `&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`
-        })],
-    });
-
-    this.layer = L.layerGroup().addTo(this.map);
-    this.updateMarkers(markersData);
+      this.layer = L.layerGroup().addTo(this.map);
+      this.updateMarkers(markersData);
+    }, 50);
   }
 
   componentDidUpdate() {
