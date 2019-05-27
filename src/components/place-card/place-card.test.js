@@ -7,7 +7,8 @@ it(`Place card renders correctly`, () => {
     pic: `src`,
     title: `String`,
     price: 120,
-    details: `Place`
+    details: `Place`,
+    rating: 3
   };
 
   const tree = renderer

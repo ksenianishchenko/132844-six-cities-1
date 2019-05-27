@@ -71,7 +71,7 @@ Array [
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "NaN%",
               }
             }
           />
@@ -167,7 +167,7 @@ Array [
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "NaN%",
               }
             }
           />
