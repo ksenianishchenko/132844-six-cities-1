@@ -5,11 +5,8 @@ import PlaceCard from "../place-card/place-card.jsx";
 class PlacesList extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      activeCardTitle: ``,
-    };
 
-    this._getActiveCard = this._getActiveCard.bind(this);
+    this._getActiveElement = this._getActiveElement.bind(this);
   }
 
   render() {
@@ -18,24 +15,24 @@ class PlacesList extends PureComponent {
     return places.map((item, index) => {
       return <PlaceCard
         place = {item}
-        onclick = {this._getActiveCard}
+        onclick = {this._getActiveElement}
         key = {`place-${index}`}
       />;
     });
   }
 
-  _getActiveCard(event) {
+  _getActiveElement(event) {
+    const {handleClick} = this.props;
     let parent = event.closest(`.place-card`);
     let title = parent.querySelector(`.place-card__name a`);
-    this.setState({
-      activeCardTitle: title.textContent
-    });
+    handleClick(title.textContent);
   }
 }
 
 PlacesList.propTypes = {
   places: PropTypes.array.isRequired,
-  onclick: PropTypes.func
+  onclick: PropTypes.func,
+  handleClick: PropTypes.func
 };
 
 export default PlacesList;

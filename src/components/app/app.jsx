@@ -6,6 +6,9 @@ import Header from "../header/header.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
 import {connect} from "react-redux";
 import {ActionCreators} from "../../reducer.js";
+import withActiveElement from "../../hocs/with-active-element.jsx";
+
+const PlacesListWrapper = withActiveElement(PlacesList);
 
 class App extends PureComponent {
   constructor(props) {
@@ -53,7 +56,7 @@ class App extends PureComponent {
                 </select>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlacesList
+                <PlacesListWrapper
                   places = {places[activeCityIndex].offers}
                 />
               </div>
