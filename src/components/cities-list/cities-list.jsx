@@ -4,10 +4,6 @@ import PropTypes from "prop-types";
 class CitiesList extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      active: ``,
-    };
   }
 
   render() {
@@ -18,8 +14,8 @@ class CitiesList extends PureComponent {
           return <li className="locations__item" key={`city-${index}`}>
             <a className={`locations__item-link tabs__item tabs__item--${activeElementIndex === index ? `active` : ``}`} href="#" id={it.city.toLowerCase()} onClick = {(evt) => {
               const target = evt.target;
-              const activeCity = target.textContent;
-              onclick(activeCity);
+              const text = target.textContent;
+              onclick(text);
             }}>
               <span>{it.city}</span>
             </a>
@@ -33,7 +29,7 @@ class CitiesList extends PureComponent {
 CitiesList.propTypes = {
   cities: PropTypes.array.isRequired,
   onclick: PropTypes.func,
-  activeElementIndex: PropTypes.number.isRequired
+  activeElementIndex: PropTypes.number.isRequired,
 };
 
 export default CitiesList;

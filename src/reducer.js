@@ -13,7 +13,7 @@ const ActionCreators = {
   changeCity: (index) => ({
     type: `CHANGE_CITY`,
     payload: index,
-  })
+  }),
 };
 
 

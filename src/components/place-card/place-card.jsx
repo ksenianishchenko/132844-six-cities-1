@@ -6,9 +6,8 @@ const PlaceCard = (props) => {
   return <article className="cities__place-card place-card">
     <div className="cities__image-wrapper place-card__image-wrapper">
       <a href="#">
-        <img className="place-card__image" onClick = {(evt) => {
-          let target = evt.target;
-          onclick(target);
+        <img className="place-card__image" onClick = {() => {
+          onclick(place);
         }} src={place.pic} width="260" height="200" alt="Place image" />
       </a>
     </div>
@@ -27,7 +26,7 @@ const PlaceCard = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: `80%`}}></span>
+          <span style={{width: `${place.rating * 100 / 5}%`}}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>

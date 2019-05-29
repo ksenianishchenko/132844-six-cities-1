@@ -2,19 +2,26 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import L from "leaflet";
 
+const activeIcon = L.icon({
+  iconUrl: `img/map-pin-active.svg`,
+  iconSize: [30, 30]
+});
+
 class Map extends PureComponent {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
-    const {cityCoordinates, offers} = this.props;
+    const {cityCoordinates, offers, activeOffer} = this.props;
     const markersData = this._getMarkersLatLang(offers);
-    this.mapCenter = cityCoordinates;
+
     this.icon = L.icon({
       iconUrl: `img/map-pin.svg`,
       iconSize: [30, 30]
     });
+
+    this.mapCenter = cityCoordinates;
     setTimeout(() => {
       this.map = L.map(`map`, {
         center: this.mapCenter,
@@ -28,16 +35,16 @@ class Map extends PureComponent {
       });
 
       this.layer = L.layerGroup().addTo(this.map);
-      this.updateMarkers(markersData);
+      this.updateMarkers(markersData, activeOffer);
     }, 50);
   }
 
   componentDidUpdate() {
-    const {offers, cityCoordinates} = this.props;
-    this.mapCenter = cityCoordinates;
+    const {offers, cityCoordinates, activeOffer} = this.props;
+    this.mapCenter = activeOffer.latLang ? activeOffer.latLang : cityCoordinates;
     this.map.panTo(this.mapCenter);
     const markersData = this._getMarkersLatLang(offers);
-    this.updateMarkers(markersData);
+    this.updateMarkers(markersData, activeOffer);
   }
 
   componentWillUnmount() {
@@ -57,17 +64,23 @@ class Map extends PureComponent {
     return markersArray;
   }
 
-  updateMarkers(markersData) {
+  updateMarkers(markersData, activeOffer) {
+    const activeIconCoordinates = activeOffer.latLang;
     this.layer.clearLayers();
     markersData.forEach((marker) => {
-      L.marker(marker).addTo(this.layer);
+      if (activeIconCoordinates !== marker) {
+        L.marker(marker).addTo(this.layer);
+      } else {
+        L.marker(activeIconCoordinates, {icon: activeIcon}).addTo(this.layer);
+      }
     });
   }
 }
 
 Map.propTypes = {
   offers: PropTypes.array.isRequired,
-  cityCoordinates: PropTypes.array.isRequired
+  cityCoordinates: PropTypes.array.isRequired,
+  activeOffer: PropTypes.object
 };
 
 export default Map;
