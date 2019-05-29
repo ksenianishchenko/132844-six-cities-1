@@ -6,7 +6,7 @@ const withActiveOffer = (Component) => {
       super(props);
 
       this.state = {
-        activeElement: ``
+        activeOffer: {}
       };
     }
 
@@ -17,7 +17,12 @@ const withActiveOffer = (Component) => {
         activeOffer = {activeOffer}
         handleClick = {(item) => {
           this.setState({
-            activeElement: item
+            activeOffer: item
+          });
+        }}
+        onClearOffer = {() => {
+          this.setState({
+            activeOffer: {}
           });
         }}
       />;
