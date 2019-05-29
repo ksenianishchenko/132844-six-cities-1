@@ -15,9 +15,9 @@ const withActiveElement = (Component) => {
       return <Component
         {...this.props}
         activeElement = {activeElement}
-        handleClick = {(text) => {
+        handleClick = {(item) => {
           this.setState({
-            activeElement: text
+            activeElement: item
           });
         }}
       />;

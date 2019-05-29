@@ -12,6 +12,7 @@ it(`Map renders correctly`, () => {
       <Map
         offers = {markers}
         cityCoordinates = {[48.862824, 2.341914]}
+        activeOffer = {{}}
       />
   ).toJSON();
 

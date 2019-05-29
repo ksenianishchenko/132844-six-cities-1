@@ -6,7 +6,7 @@ import Header from "../header/header.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
 import {connect} from "react-redux";
 import {ActionCreators} from "../../reducer.js";
-import withActiveElement from "../../hocs/with-active-element.jsx";
+import withActiveElement from "../../hocs/with-active-element/with-active-element.jsx";
 
 const PlacesListWrapper = withActiveElement(PlacesList);
 
@@ -16,7 +16,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {places, activeCityIndex, getCityOffers} = this.props;
+    const {places, activeCityIndex, getCityOffers, getActiveOffer, activeOffer} = this.props;
     return <React.Fragment>
       <Header />
       <main className="page__main page__main--index">
@@ -58,6 +58,9 @@ class App extends PureComponent {
               <div className="cities__places-list places__list tabs__content">
                 <PlacesListWrapper
                   places = {places[activeCityIndex].offers}
+                  onCardClick = {(offer) => {
+                    getActiveOffer(offer);
+                  }}
                 />
               </div>
             </section>
@@ -65,6 +68,7 @@ class App extends PureComponent {
               <Map
                 offers = {places[activeCityIndex].offers}
                 cityCoordinates = {places[activeCityIndex].cityCoordinates}
+                activeOffer = {activeOffer}
               />
             </div>
           </div>
@@ -78,12 +82,15 @@ class App extends PureComponent {
 App.propTypes = {
   places: PropTypes.array.isRequired,
   activeCityIndex: PropTypes.number.isRequired,
-  getCityOffers: PropTypes.func.isRequired
+  getCityOffers: PropTypes.func.isRequired,
+  getActiveOffer: PropTypes.func.isRequired,
+  activeOffer: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   activeCityIndex: state.activeCityIndex,
-  places: state.offers
+  places: state.offers,
+  activeOffer: state.activeOffer
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -93,6 +100,9 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(ActionCreators.changeCity(i));
       }
     }
+  },
+  getActiveOffer: (offer) => {
+    dispatch(ActionCreators.getActiveOffer(offer));
   }
 });
 
