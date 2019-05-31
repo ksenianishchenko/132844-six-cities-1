@@ -10,23 +10,23 @@ class PlacesList extends PureComponent {
   }
 
   render() {
-    const {places, handleClick, activeCityIndex, activeOffer, getCityOffers, onClearOffer} = this.props;
+    const {places, handleClick, activeOffer, getActiveCity, onClearOffer, activeCity, cities} = this.props;
 
     return <React.Fragment>
       <div className="cities tabs">
         <CitiesList
-          cities = {places}
-          onclick = {(activeCity) => {
+          cities = {cities}
+          activeCity = {activeCity}
+          onclick = {(city) => {
             onClearOffer();
-            getCityOffers(activeCity, places);
+            getActiveCity(city, cities);
           }}
-          activeElementIndex = {activeCityIndex}
         /></div>
       <div className="cities__places-wrapper">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{places[activeCityIndex].offers.length} places to stay in {places[activeCityIndex].city}</b>
+            <b className="places__found">{places.length} places to stay in {activeCity.name}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">
@@ -43,7 +43,7 @@ class PlacesList extends PureComponent {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {places[activeCityIndex].offers.map((item, index) => {
+              {places.map((item, index) => {
                 return <PlaceCard
                   place = {item}
                   onclick = {(card) => {
@@ -56,8 +56,8 @@ class PlacesList extends PureComponent {
           </section>
           <div className="cities__right-section">
             <Map
-              offers = {places[activeCityIndex].offers}
-              cityCoordinates = {places[activeCityIndex].cityCoordinates}
+              offers = {places}
+              activeCity = {activeCity}
               activeOffer = {activeOffer}
             />
           </div>
@@ -71,10 +71,11 @@ PlacesList.propTypes = {
   places: PropTypes.array.isRequired,
   onclick: PropTypes.func,
   handleClick: PropTypes.func,
-  activeCityIndex: PropTypes.number.isRequired,
   activeOffer: PropTypes.object,
-  getCityOffers: PropTypes.func,
-  onClearOffer: PropTypes.func
+  getActiveCity: PropTypes.func,
+  onClearOffer: PropTypes.func,
+  activeCity: PropTypes.object.isRequired,
+  cities: PropTypes.array.isRequired
 };
 
 export default PlacesList;

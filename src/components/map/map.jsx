@@ -13,7 +13,7 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {cityCoordinates, offers, activeOffer} = this.props;
+    const {activeCity, offers, activeOffer} = this.props;
     const markersData = this._getMarkersLatLang(offers);
 
     this.icon = L.icon({
@@ -21,11 +21,13 @@ class Map extends PureComponent {
       iconSize: [30, 30]
     });
 
+    const cityCoordinates = [activeCity.location.latitude, activeCity.location.longitude];
+
     this.mapCenter = cityCoordinates;
     setTimeout(() => {
       this.map = L.map(`map`, {
         center: this.mapCenter,
-        zoom: 11,
+        zoom: 13,
         zoomControl: false,
         marker: true,
         layers: [
@@ -40,8 +42,13 @@ class Map extends PureComponent {
   }
 
   componentDidUpdate() {
-    const {offers, cityCoordinates, activeOffer} = this.props;
-    this.mapCenter = activeOffer.latLang ? activeOffer.latLang : cityCoordinates;
+    const {offers, activeCity, activeOffer} = this.props;
+    const cityCoordinates = [activeCity.location.latitude, activeCity.location.longitude];
+    if (activeOffer.location) {
+      this.mapCenter = [activeOffer.location.latitude, activeOffer.location.longitude];
+    } else {
+      this.mapCenter = cityCoordinates;
+    }
     this.map.panTo(this.mapCenter);
     const markersData = this._getMarkersLatLang(offers);
     this.updateMarkers(markersData, activeOffer);
@@ -59,28 +66,36 @@ class Map extends PureComponent {
   _getMarkersLatLang(places) {
     const markersArray = [];
     places.map((it) => {
-      markersArray.push(it.latLang);
+      markersArray.push([it.location.latitude, it.location.longitude]);
     });
     return markersArray;
   }
 
   updateMarkers(markersData, activeOffer) {
-    const activeIconCoordinates = activeOffer.latLang;
+    let activeIconCoordinates = [];
+    if (activeOffer.location) {
+      activeIconCoordinates = [activeOffer.location.latitude, activeOffer.location.longitude];
+    }
     this.layer.clearLayers();
-    markersData.forEach((marker) => {
+    for (let marker of markersData) {
+      const arraysEqual = (a1, a2) => {
+        return JSON.stringify(a1) === JSON.stringify(a2);
+      };
       if (activeIconCoordinates !== marker) {
         L.marker(marker).addTo(this.layer);
-      } else {
+      }
+
+      if (arraysEqual(marker, activeIconCoordinates)) {
         L.marker(activeIconCoordinates, {icon: activeIcon}).addTo(this.layer);
       }
-    });
+    }
   }
 }
 
 Map.propTypes = {
   offers: PropTypes.array.isRequired,
-  cityCoordinates: PropTypes.array.isRequired,
-  activeOffer: PropTypes.object
+  activeOffer: PropTypes.object,
+  activeCity: PropTypes.object.isRequired
 };
 
 export default Map;

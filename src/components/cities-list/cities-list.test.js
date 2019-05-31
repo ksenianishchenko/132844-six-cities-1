@@ -3,15 +3,15 @@ import renderer from "react-test-renderer";
 import CitiesList from "./cities-list.jsx";
 
 it(`Cities list renders correctly`, () => {
-  const cities = [{
-    city: `Moscow`,
-  }];
+  const city = {"name": `Dusseldorf`,
+    "location": {"latitude": 51.225402, "longitude": 6.776314, "zoom": 13},
+  };
 
   const tree = renderer
   .create(<CitiesList
-    cities = {cities}
+    cities = {[city]}
     onclick = {() => {}}
-    activeElementIndex = {5}
+    activeCity = {city}
   />).toJSON();
 
   expect(tree).toMatchSnapshot();

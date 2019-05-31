@@ -3,15 +3,22 @@ import renderer from "react-test-renderer";
 import Map from "./map.jsx";
 
 it(`Map renders correctly`, () => {
-  const markers = [
-    [52.3909553943512, 4.85309666406167],
-    [52.3909553943512, 4.85309666406168]
+
+  const city = [
+    {
+      "location": {"latitude": 50.846557, "longitude": 4.351697, "zoom": 13},
+      "name": `Brussels`}
   ];
+
+  const activeCity = {
+    "name": `Dusseldorf`,
+    "location": {"latitude": 51.225402, "longitude": 6.776314, "zoom": 13},
+  };
 
   const tree = renderer.create(
       <Map
-        offers = {markers}
-        cityCoordinates = {[48.862824, 2.341914]}
+        offers = {city}
+        activeCity = {activeCity}
         activeOffer = {{}}
       />
   ).toJSON();
