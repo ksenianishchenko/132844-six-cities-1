@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import PlacesList from "../places-list/places-list.jsx";
 import Header from "../header/header.jsx";
 import {connect} from "react-redux";
-import {ActionCreators} from "../../reducer.js";
+import {ActionCreators} from "../../reducers/game/game.js";
 import withActiveOffer from "../../hocs/with-active-offer/with-active-offer.jsx";
+import {getCity} from "../../reducers/game/selectors.js";
+import {getOffers} from "../../reducers/data/selectors.js";
 
 const PlacesListWrapper = withActiveOffer(PlacesList);
 
@@ -14,15 +16,16 @@ class App extends PureComponent {
   }
 
   render() {
-    const {places, activeCityIndex, getCityOffers} = this.props;
+    const {places, getActiveCity, activeCity, cities} = this.props;
     return <React.Fragment>
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <PlacesListWrapper
           places = {places}
-          activeCityIndex = {activeCityIndex}
-          getCityOffers = {getCityOffers}
+          getActiveCity = {getActiveCity}
+          activeCity = {activeCity}
+          cities = {cities}
         />
 
       </main>
@@ -32,22 +35,23 @@ class App extends PureComponent {
 
 App.propTypes = {
   places: PropTypes.array.isRequired,
-  activeCityIndex: PropTypes.number.isRequired,
-  getCityOffers: PropTypes.func.isRequired
+  getActiveCity: PropTypes.func.isRequired,
+  activeCity: PropTypes.object.isRequired,
+  cities: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  activeCityIndex: state.activeCityIndex,
-  places: state.offers
+  activeCity: getCity(state),
+  cities: [...new Set(getOffers(state).map((item) => item.city))],
+  places: getOffers(state).filter((place) => place.city.name === getCity(state).name)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getCityOffers: (activeCity, offersArray) => {
-    for (let i = 0; i < offersArray.length; i++) {
-      if (offersArray[i].city === activeCity) {
-        dispatch(ActionCreators.changeCity(i));
-      }
-    }
+  getActiveCity: (activeCity, cities) => {
+    const uniq = new Set(cities.map((e) => JSON.stringify(e)));
+    const res = Array.from(uniq).map((e) => JSON.parse(e));
+    let city = res.filter((item) => item.name === activeCity);
+    dispatch(ActionCreators.getActiveCity(city[0]));
   }
 });
 

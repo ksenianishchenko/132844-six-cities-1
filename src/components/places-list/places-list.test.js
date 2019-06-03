@@ -4,7 +4,10 @@ import PlacesList from "./places-list.jsx";
 
 const places = [
   {
-    city: `Paris`,
+    city: {
+      "location": {"latitude": 50.846557, "longitude": 4.351697, "zoom": 13},
+      "name": `Brussels`},
+    location: {"latitude": 50.846557, "longitude": 4.351697, "zoom": 13},
     cityCoordinates: [48.862824, 2.341914],
     offers: [{
       pic: `img/apartment-01.jpg`,
@@ -17,11 +20,16 @@ const places = [
   },
 ];
 
+const city = {"name": `Dusseldorf`,
+  "location": {"latitude": 51.225402, "longitude": 6.776314, "zoom": 13},
+};
+
 it(`List of places renders correctly`, () => {
   const tree = renderer
   .create(<PlacesList
     places = {places}
-    activeCityIndex = {0}
+    activeCity = {city}
+    cities = {[city]}
   />).toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -7,29 +7,36 @@ class CitiesList extends PureComponent {
   }
 
   render() {
-    const {cities, onclick, activeElementIndex} = this.props;
+    const {cities, onclick, activeCity} = this.props;
+    const unicCitiesArray = this._handleUnicCities(cities);
     return <section className="locations container">
       <ul className="locations__list tabs__list">
-        {cities.map((it, index) => {
+        {unicCitiesArray.map((it, index) => {
           return <li className="locations__item" key={`city-${index}`}>
-            <a className={`locations__item-link tabs__item tabs__item--${activeElementIndex === index ? `active` : ``}`} href="#" id={it.city.toLowerCase()} onClick = {(evt) => {
+            <a className={`locations__item-link tabs__item tabs__item--${activeCity.name === it.name ? `active` : ``}`} href="#" id={it.name.toLowerCase()} onClick = {(evt) => {
               const target = evt.target;
               const text = target.textContent;
               onclick(text);
             }}>
-              <span>{it.city}</span>
+              <span>{it.name}</span>
             </a>
           </li>;
         })}
       </ul>
     </section>;
   }
+
+  _handleUnicCities(array) {
+    const uniq = new Set(array.map((e) => JSON.stringify(e)));
+    const res = Array.from(uniq).map((e) => JSON.parse(e));
+    return res;
+  }
 }
 
 CitiesList.propTypes = {
   cities: PropTypes.array.isRequired,
   onclick: PropTypes.func,
-  activeElementIndex: PropTypes.number.isRequired,
+  activeCity: PropTypes.object.isRequired,
 };
 
 export default CitiesList;

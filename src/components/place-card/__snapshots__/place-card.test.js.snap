@@ -15,7 +15,6 @@ exports[`Place card renders correctly 1`] = `
         className="place-card__image"
         height="200"
         onClick={[Function]}
-        src="src"
         width="260"
       />
     </a>
@@ -92,9 +91,7 @@ exports[`Place card renders correctly 1`] = `
     </h2>
     <p
       className="place-card__type"
-    >
-      Place
-    </p>
+    />
   </div>
 </article>
 `;
