@@ -1,6 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import PlacesList from "./places-list.jsx";
+import {createStore} from 'redux';
+import combineReducers from "../../reducers/index.js";
+import {Provider} from 'react-redux';
 
 const places = [
   {
@@ -25,12 +28,13 @@ const city = {"name": `Dusseldorf`,
 };
 
 it(`List of places renders correctly`, () => {
+  const store = createStore(combineReducers);
   const tree = renderer
-  .create(<PlacesList
+  .create(<Provider store={store}><PlacesList
     places = {places}
     activeCity = {city}
     cities = {[city]}
-  />).toJSON();
+  /></Provider>).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
