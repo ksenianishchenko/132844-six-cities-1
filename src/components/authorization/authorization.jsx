@@ -3,16 +3,18 @@ import PropTypes from "prop-types";
 import {onAuthorizationRequest} from "../../reducers/user/user.js";
 import {connect} from "react-redux";
 import {getCity} from "../../reducers/game/selectors.js";
-import {getAuthorizationError} from "../../reducers/user/selectors.js";
+import {getAuthorizationError, getAuthorizationStatus} from "../../reducers/user/selectors.js";
+import {Redirect} from "react-router-dom";
 
 class Authorization extends PureComponent {
   constructor(props) {
     super(props);
   }
   render() {
-    const {getAuthorizationPostResponse, activeCity, authorizationError, userData, handleGetInputValue} = this.props;
-    if (authorizationError) {
-      return <div style={{color: `red`}}>authorizationError</div>;
+    const {getAuthorizationPostResponse, activeCity, userData, handleGetInputValue, isAuthorizationRequired} = this.props;
+
+    if (!isAuthorizationRequired) {
+      return <Redirect to="/" />;
     }
 
     return <main className="page__main page__main--login">
@@ -62,12 +64,14 @@ Authorization.propTypes = {
   activeCity: PropTypes.object,
   authorizationError: PropTypes.string,
   handleGetInputValue: PropTypes.func,
-  userData: PropTypes.object
+  userData: PropTypes.object,
+  isAuthorizationRequired: PropTypes.bool
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   activeCity: getCity(state),
-  authorizationError: getAuthorizationError(state)
+  authorizationError: getAuthorizationError(state),
+  isAuthorizationRequired: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
