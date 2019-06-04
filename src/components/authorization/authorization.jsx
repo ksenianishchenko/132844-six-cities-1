@@ -3,16 +3,18 @@ import PropTypes from "prop-types";
 import {onAuthorizationRequest} from "../../reducers/user/user.js";
 import {connect} from "react-redux";
 import {getCity} from "../../reducers/game/selectors.js";
-import {getAuthorizationError} from "../../reducers/user/selectors.js";
+import {getAuthorizationError, getAuthorizationStatus} from "../../reducers/user/selectors.js";
+import {Redirect} from "react-router-dom";
 
 class Authorization extends PureComponent {
   constructor(props) {
     super(props);
   }
   render() {
-    const {getAuthorizationPostResponse, activeCity, authorizationError, userData, handleGetInputValue} = this.props;
-    if (authorizationError) {
-      return <div style={{color: `red`}}>authorizationError</div>;
+    const {getAuthorizationPostResponse, activeCity, userData, handleGetInputValue, isAuthorizationRequired, authorizationError} = this.props;
+
+    if (!isAuthorizationRequired) {
+      return <Redirect to="/" />;
     }
 
     return <main className="page__main page__main--login">
@@ -25,7 +27,7 @@ class Authorization extends PureComponent {
           } }>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">E-mail</label>
-              <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" onChange={(evt) => {
+              <input className="login__input form__input" type="email" name="email" placeholder="Email" required onChange={(evt) => {
                 const target = evt.target;
                 const value = target.value;
                 const key = target.name;
@@ -34,7 +36,7 @@ class Authorization extends PureComponent {
             </div>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">Password</label>
-              <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" onChange={(evt) => {
+              <input className="login__input form__input" type="password" name="password" placeholder="Password" required onChange={(evt) => {
                 const target = evt.target;
                 const value = target.value;
                 const key = target.name;
@@ -42,6 +44,7 @@ class Authorization extends PureComponent {
               }}/>
             </div>
             <button className="login__submit form__submit button" type="submit">Sign in</button>
+            {authorizationError ? <div style={{color: `red`}}>Ошибка 400</div> : ``}
           </form>
         </section>
         <section className="locations locations--login locations--current">
@@ -62,12 +65,14 @@ Authorization.propTypes = {
   activeCity: PropTypes.object,
   authorizationError: PropTypes.string,
   handleGetInputValue: PropTypes.func,
-  userData: PropTypes.object
+  userData: PropTypes.object,
+  isAuthorizationRequired: PropTypes.bool
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   activeCity: getCity(state),
-  authorizationError: getAuthorizationError(state)
+  authorizationError: getAuthorizationError(state),
+  isAuthorizationRequired: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

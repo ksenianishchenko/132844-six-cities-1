@@ -9,6 +9,9 @@ import {getCity} from "../../reducers/game/selectors.js";
 import {getOffers} from "../../reducers/data/selectors.js";
 import {getAuthorizationStatus, getAuthorizationPostResponse} from "../../reducers/user/selectors.js";
 import {Authorization} from "../authorization/authorization.jsx";
+import {Switch, Route} from "react-router-dom";
+import Favorites from "../favorites/favorites.jsx";
+import {withPrivateRoute as PrivateRoute} from "../../hocs/with-private-route/with-private-route.jsx";
 
 const PlacesListWrapper = withActiveOffer(PlacesList);
 const AuthorizationWrapper = withAuthorizationForm(Authorization);
@@ -19,21 +22,17 @@ class App extends PureComponent {
   }
 
   render() {
-    return this._handleGetScreen();
-  }
-
-  _handleGetScreen() {
-    const {places, getActiveCity, activeCity, cities} = this.props;
-    if (this.props.isAuthorizationRequired) {
-      return <AuthorizationWrapper />;
-    }
-
-    return <PlacesListWrapper
-      places = {places}
-      getActiveCity = {getActiveCity}
-      activeCity = {activeCity}
-      cities = {cities}
-    />;
+    const {places, getActiveCity, activeCity, cities, isAuthorizationRequired} = this.props;
+    return <Switch>
+      <Route path="/login" component={AuthorizationWrapper} />
+      <Route path="/" exact render = {() => <PlacesListWrapper
+        places = {places}
+        getActiveCity = {getActiveCity}
+        activeCity = {activeCity}
+        cities = {cities}
+      />} />
+      <PrivateRoute authed = {isAuthorizationRequired} path="/favorites" component={Favorites} />
+    </Switch>;
   }
 }
 

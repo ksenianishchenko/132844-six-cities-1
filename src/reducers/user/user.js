@@ -37,11 +37,13 @@ const onAuthorizationRequest = (email, password) => (dispatch, getState, api) =>
     password
   })
   .then((response) => {
+    if (response.isAxiosError) {
+      dispatch(ActionCreators.getAuthorizationError(true));
+      return;
+    }
+
     dispatch(ActionCreators.authorizationPostResponse(response.data));
     dispatch(ActionCreators.requireAuthorization());
-  })
-  .catch((err) => {
-    return ActionCreators.getAuthorizationError(err.response.data);
   });
 };
 

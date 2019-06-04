@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getAuthorizationPostResponse, getAuthorizationStatus} from "../../reducers/user/selectors.js";
+import {Link} from 'react-router-dom';
 
 class Header extends PureComponent {
   constructor(props) {
@@ -25,14 +26,14 @@ class Header extends PureComponent {
             <ul className="header__nav-list">
               <li className="header__nav-item user">
                 {!isAuthorizationRequired ?
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <div className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">{authorizationPostResponse.email}</span>
-                  </a> :
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                    <Link to="/favorites" className="header__user-name user__name">{authorizationPostResponse.email}</Link>
+                  </div> :
+                  <Link to="/login" className="header__nav-link header__nav-link--profile" href="#">
                     <span className="header__user-name user__name">Sign In</span>
-                  </a>}
+                  </Link>}
               </li>
             </ul>
           </nav>

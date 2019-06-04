@@ -34,7 +34,7 @@ exports[`Authorization screen renders correctly 1`] = `
             name="email"
             onChange={[Function]}
             placeholder="Email"
-            required=""
+            required={true}
             type="email"
           />
         </div>
@@ -51,7 +51,7 @@ exports[`Authorization screen renders correctly 1`] = `
             name="password"
             onChange={[Function]}
             placeholder="Password"
-            required=""
+            required={true}
             type="password"
           />
         </div>
@@ -61,6 +61,7 @@ exports[`Authorization screen renders correctly 1`] = `
         >
           Sign in
         </button>
+        
       </form>
     </section>
     <section

@@ -8,9 +8,10 @@ import {Operations} from "./reducers/data/data.js";
 import thunk from "redux-thunk";
 import {compose} from "recompose";
 import {createAPI} from './api.js';
+import {BrowserRouter} from "react-router-dom";
 
 const init = () => {
-  const api = createAPI((...args) => store.dispatch(...args));
+  const api = createAPI();
   const store = createStore(
       combineReducers,
       compose(
@@ -23,7 +24,9 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store = {store}>
-        <App/>
+        <BrowserRouter>
+          <App/>
+        </BrowserRouter>
       </Provider>,
       document.getElementById(`root`)
   );
