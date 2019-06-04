@@ -11,6 +11,7 @@ import {getAuthorizationStatus, getAuthorizationPostResponse} from "../../reduce
 import {Authorization} from "../authorization/authorization.jsx";
 import {Switch, Route} from "react-router-dom";
 import Favorites from "../favorites/favorites.jsx";
+import {withPrivateRoute as PrivateRoute} from "../../hocs/with-private-route/with-private-route.jsx";
 
 const PlacesListWrapper = withActiveOffer(PlacesList);
 const AuthorizationWrapper = withAuthorizationForm(Authorization);
@@ -21,7 +22,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {places, getActiveCity, activeCity, cities} = this.props;
+    const {places, getActiveCity, activeCity, cities, isAuthorizationRequired} = this.props;
     return <Switch>
       <Route path="/login" component={AuthorizationWrapper} />
       <Route path="/" exact render = {() => <PlacesListWrapper
@@ -30,7 +31,7 @@ class App extends PureComponent {
         activeCity = {activeCity}
         cities = {cities}
       />} />
-      <Route path="/favorites" component={Favorites} />
+      <PrivateRoute authed = {isAuthorizationRequired} path="/favorites" component={Favorites} />
     </Switch>;
   }
 }

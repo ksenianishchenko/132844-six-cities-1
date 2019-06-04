@@ -11,7 +11,7 @@ class Authorization extends PureComponent {
     super(props);
   }
   render() {
-    const {getAuthorizationPostResponse, activeCity, userData, handleGetInputValue, isAuthorizationRequired} = this.props;
+    const {getAuthorizationPostResponse, activeCity, userData, handleGetInputValue, isAuthorizationRequired, authorizationError} = this.props;
 
     if (!isAuthorizationRequired) {
       return <Redirect to="/" />;
@@ -27,7 +27,7 @@ class Authorization extends PureComponent {
           } }>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">E-mail</label>
-              <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" onChange={(evt) => {
+              <input className="login__input form__input" type="email" name="email" placeholder="Email" required onChange={(evt) => {
                 const target = evt.target;
                 const value = target.value;
                 const key = target.name;
@@ -36,7 +36,7 @@ class Authorization extends PureComponent {
             </div>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">Password</label>
-              <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" onChange={(evt) => {
+              <input className="login__input form__input" type="password" name="password" placeholder="Password" required onChange={(evt) => {
                 const target = evt.target;
                 const value = target.value;
                 const key = target.name;
@@ -44,6 +44,7 @@ class Authorization extends PureComponent {
               }}/>
             </div>
             <button className="login__submit form__submit button" type="submit">Sign in</button>
+            {authorizationError ? <div style={{color: `red`}}>Ошибка 400</div> : ``}
           </form>
         </section>
         <section className="locations locations--login locations--current">
