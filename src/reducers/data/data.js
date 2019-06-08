@@ -2,7 +2,7 @@ const initialState = {
   loadedOffers: []
 };
 
-const actionsType = {
+const ActionsType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
 };
 
@@ -27,7 +27,7 @@ const Operations = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionsType.LOAD_OFFERS: return Object.assign({}, state, {
+    case ActionsType.LOAD_OFFERS: return Object.assign({}, state, {
       loadedOffers: action.payload
     });
   }
@@ -35,4 +35,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionCreators, Operations, actionsType};
+export {reducer, ActionCreators, Operations, ActionsType};

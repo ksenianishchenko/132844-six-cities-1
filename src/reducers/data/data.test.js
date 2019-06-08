@@ -1,6 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
-import {actionsType, Operations} from "./data.js";
+import {ActionsType, Operations} from "./data.js";
 
 
 describe(`Reducer works correctly`, () => {
@@ -18,7 +18,7 @@ describe(`Reducer works correctly`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: actionsType.LOAD_OFFERS,
+          type: ActionsType.LOAD_OFFERS,
           payload: [{fake: true}],
         });
       });
