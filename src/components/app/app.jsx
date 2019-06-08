@@ -12,8 +12,10 @@ import {Authorization} from "../authorization/authorization.jsx";
 import {Switch, Route} from "react-router-dom";
 import Favorites from "../favorites/favorites.jsx";
 import {withPrivateRoute as PrivateRoute} from "../../hocs/with-private-route/with-private-route.jsx";
+import {Offer} from "../offer/offer.jsx";
+import withSort from "../../hocs/with-sort/with-sort.jsx";
 
-const PlacesListWrapper = withActiveOffer(PlacesList);
+const PlacesListWrapper = withSort(withActiveOffer(PlacesList));
 const AuthorizationWrapper = withAuthorizationForm(Authorization);
 
 class App extends PureComponent {
@@ -32,6 +34,7 @@ class App extends PureComponent {
         cities = {cities}
       />} />
       <PrivateRoute authed = {isAuthorizationRequired} path="/favorites" component={Favorites} />
+      <Route path="/offer/:id" component={Offer} />
     </Switch>;
   }
 }

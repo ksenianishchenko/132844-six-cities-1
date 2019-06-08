@@ -84,7 +84,8 @@ exports[`Place card renders correctly 1`] = `
       className="place-card__name"
     >
       <a
-        href="#"
+        href="/offer/undefined"
+        onClick={[Function]}
       >
         String
       </a>

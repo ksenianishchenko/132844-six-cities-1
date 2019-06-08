@@ -37,6 +37,7 @@ it(`List of places renders correctly`, () => {
         places = {places}
         activeCity = {city}
         cities = {[city]}
+        activeElement = {`Popular`}
       />
     </BrowserRouter>
   </Provider>).toJSON();
