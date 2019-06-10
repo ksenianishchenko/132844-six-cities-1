@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import L from "leaflet";
 
 const activeIcon = L.icon({
-  iconUrl: `img/map-pin-active.svg`,
+  iconUrl: `/img/map-pin-active.svg`,
   iconSize: [30, 30]
 });
 
@@ -24,6 +24,7 @@ class Map extends PureComponent {
     const cityCoordinates = [activeCity.location.latitude, activeCity.location.longitude];
 
     this.mapCenter = cityCoordinates;
+
     setTimeout(() => {
       this.map = L.map(`map`, {
         center: this.mapCenter,
@@ -60,7 +61,7 @@ class Map extends PureComponent {
   }
 
   render() {
-    return <section id="map" className="cities__map map"></section>;
+    return <div id="map" style={{height: `100%`}}></div>;
   }
 
   _getMarkersLatLang(places) {

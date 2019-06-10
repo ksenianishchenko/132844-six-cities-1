@@ -223,6 +223,7 @@ Array [
                     className="place-card__image"
                     height="200"
                     onClick={[Function]}
+                    src="img/1.png"
                     width="260"
                   />
                 </a>
@@ -240,6 +241,7 @@ Array [
                       className="place-card__price-value"
                     >
                       €
+                      120
                     </b>
                     <span
                       className="place-card__price-text"
@@ -248,7 +250,7 @@ Array [
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button button"
+                    className="place-card__bookmark-button button "
                     type="button"
                   >
                     <svg
@@ -276,7 +278,7 @@ Array [
                     <span
                       style={
                         Object {
-                          "width": "NaN%",
+                          "width": "100%",
                         }
                       }
                     />
@@ -291,13 +293,17 @@ Array [
                   className="place-card__name"
                 >
                   <a
-                    href="/offer/undefined"
+                    href="/offer/1"
                     onClick={[Function]}
-                  />
+                  >
+                    Beautiful & luxurious studio at great location
+                  </a>
                 </h2>
                 <p
                   className="place-card__type"
-                />
+                >
+                  apartment
+                </p>
               </div>
             </article>
           </div>
@@ -308,7 +314,16 @@ Array [
           <section
             className="cities__map map"
             id="map"
-          />
+          >
+            <div
+              id="map"
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            />
+          </section>
         </div>
       </div>
     </div>

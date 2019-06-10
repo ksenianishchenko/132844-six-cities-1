@@ -76,6 +76,7 @@ exports[`Reviews list renders correctly 1`] = `
         </time>
       </div>
     </li>
+    ;
   </ul>
   <form
     action="#"
