@@ -2,7 +2,8 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getActiveOffer} from "../../reducers/offer/selectors.js";
-import {ActionCreators} from "../../reducers/offer/offer.js";
+import {ActionCreators as ActionCreatorsOffer} from "../../reducers/offer/offer.js";
+import {getUsersReviews} from "../../reducers/comments/comments.js";
 import {Link} from 'react-router-dom';
 
 class PlaceCard extends PureComponent {
@@ -11,7 +12,7 @@ class PlaceCard extends PureComponent {
   }
 
   render() {
-    const {place, onclick, getOffer} = this.props;
+    const {place, onclick, getOffer, getOfferReviews} = this.props;
     return <article className="cities__place-card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
@@ -42,6 +43,7 @@ class PlaceCard extends PureComponent {
         <h2 className="place-card__name">
           <Link onClick = {() => {
             getOffer(place);
+            getOfferReviews(place.id);
           }} to={`/offer/${place.id}`}>{place.title}</Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
@@ -56,7 +58,8 @@ PlaceCard.propTypes = {
   onMoustLeave: PropTypes.func,
   onMouseEnter: PropTypes.func,
   active: PropTypes.string,
-  getOffer: PropTypes.func
+  getOffer: PropTypes.func,
+  getOfferReviews: PropTypes.func
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -65,8 +68,11 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 
 const mapDispatchToProps = (dispatch) => ({
   getOffer: (offer) => {
-    dispatch(ActionCreators.getActiveOffer(offer));
+    dispatch(ActionCreatorsOffer.getActiveOffer(offer));
   },
+  getOfferReviews: (id) => {
+    dispatch(getUsersReviews(id));
+  }
 });
 
 
