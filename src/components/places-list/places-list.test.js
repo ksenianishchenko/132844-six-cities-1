@@ -1,26 +1,42 @@
 import React from "react";
-import renderer from "react-test-renderer";
 import PlacesList from "./places-list.jsx";
-import {createStore} from 'redux';
-import combineReducers from "../../reducers/index.js";
-import {Provider} from 'react-redux';
 import {BrowserRouter} from "react-router-dom";
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 const places = [
   {
-    city: {
-      "location": {"latitude": 50.846557, "longitude": 4.351697, "zoom": 13},
-      "name": `Brussels`},
-    location: {"latitude": 50.846557, "longitude": 4.351697, "zoom": 13},
-    cityCoordinates: [48.862824, 2.341914],
-    offers: [{
-      pic: `img/apartment-01.jpg`,
-      title: `Beautiful & luxurious apartment at great location`,
-      price: 120,
-      details: `Apartment`,
-      latLang: [48.861206, 2.132363],
-      rating: 3
-    }],
+    "id": 1,
+    "city": {
+      "name": `Amsterdam`,
+      "location": {
+        "latitude": 52.370216,
+        "longitude": 4.895168,
+        "zoom": 10
+      }
+    },
+    "preview_image": `img/1.png`,
+    "images": [`img/1.png`, `img/2.png`],
+    "title": `Beautiful & luxurious studio at great location`,
+    "is_favorite": false,
+    "is_premium": false,
+    "rating": 4.8,
+    "type": `apartment`,
+    "bedrooms": 3,
+    "max_adults": 4,
+    "price": 120,
+    "goods": [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
+    "host": {
+      "id": 3,
+      "is_pro": true,
+      "name": `Angelina`,
+      "avatar_url": `img/1.png`
+    },
+    "description": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+    "location": {
+      "latitude": 52.35514938496378,
+      "longitude": 4.673877537499948,
+      "zoom": 8,
+    }
   },
 ];
 
@@ -29,18 +45,17 @@ const city = {"name": `Dusseldorf`,
 };
 
 it(`List of places renders correctly`, () => {
-  const store = createStore(combineReducers);
+  const renderer = new ShallowRenderer();
   const tree = renderer
-  .create(<Provider store={store}>
-    <BrowserRouter>
-      <PlacesList
-        places = {places}
-        activeCity = {city}
-        cities = {[city]}
-        activeElement = {`Popular`}
-      />
-    </BrowserRouter>
-  </Provider>).toJSON();
+  .render(
+      <BrowserRouter>
+        <PlacesList
+          places = {places}
+          activeCity = {city}
+          cities = {[city]}
+          activeElement = {`Popular`}
+        />
+      </BrowserRouter>);
 
   expect(tree).toMatchSnapshot();
 });

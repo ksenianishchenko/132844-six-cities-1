@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import L from "leaflet";
 
 const activeIcon = L.icon({
-  iconUrl: `img/map-pin-active.svg`,
+  iconUrl: `/img/map-pin-active.svg`,
   iconSize: [30, 30]
 });
 
@@ -23,7 +23,12 @@ class Map extends PureComponent {
 
     const cityCoordinates = [activeCity.location.latitude, activeCity.location.longitude];
 
-    this.mapCenter = cityCoordinates;
+    if (activeOffer.location) {
+      this.mapCenter = [activeOffer.location.latitude, activeOffer.location.longitude];
+    } else {
+      this.mapCenter = cityCoordinates;
+    }
+
     setTimeout(() => {
       this.map = L.map(`map`, {
         center: this.mapCenter,
@@ -60,7 +65,7 @@ class Map extends PureComponent {
   }
 
   render() {
-    return <section id="map" className="cities__map map"></section>;
+    return <div id="map" style={{height: `100%`}}></div>;
   }
 
   _getMarkersLatLang(places) {
@@ -81,12 +86,11 @@ class Map extends PureComponent {
       const arraysEqual = (a1, a2) => {
         return JSON.stringify(a1) === JSON.stringify(a2);
       };
-      if (activeIconCoordinates !== marker) {
-        L.marker(marker).addTo(this.layer);
-      }
 
       if (arraysEqual(marker, activeIconCoordinates)) {
         L.marker(activeIconCoordinates, {icon: activeIcon}).addTo(this.layer);
+      } else {
+        L.marker(marker).addTo(this.layer);
       }
     }
   }

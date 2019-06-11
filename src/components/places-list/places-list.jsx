@@ -13,7 +13,7 @@ const PlacesList = (props) => {
   const placesArray = places.slice(0);
 
   let sorting = sortingPlaces ? sortingPlaces : places;
-  if (sorting === null) {
+  if (!places.length) {
     return <div className="cities__places-wrapper">
       <div className="cities__places-container cities__places-container--empty container">
         <section className="cities__no-places">
@@ -81,11 +81,13 @@ const PlacesList = (props) => {
             </div>
           </section>
           <div className="cities__right-section">
-            <Map
-              offers = {places}
-              activeCity = {activeCity}
-              activeOffer = {activeOffer}
-            />
+            <section id="map" className="cities__map map">
+              <Map
+                offers = {places}
+                activeCity = {activeCity}
+                activeOffer = {activeOffer}
+              />
+            </section>
           </div>
         </div>
       </div>
