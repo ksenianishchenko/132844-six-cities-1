@@ -1,10 +1,7 @@
 import React from "react";
-import renderer from "react-test-renderer";
 import PlacesList from "./places-list.jsx";
-import {createStore} from 'redux';
-import combineReducers from "../../reducers/index.js";
-import {Provider} from 'react-redux';
 import {BrowserRouter} from "react-router-dom";
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 const places = [
   {
@@ -48,18 +45,17 @@ const city = {"name": `Dusseldorf`,
 };
 
 it(`List of places renders correctly`, () => {
-  const store = createStore(combineReducers);
+  const renderer = new ShallowRenderer();
   const tree = renderer
-  .create(<Provider store={store}>
-    <BrowserRouter>
-      <PlacesList
-        places = {places}
-        activeCity = {city}
-        cities = {[city]}
-        activeElement = {`Popular`}
-      />
-    </BrowserRouter>
-  </Provider>).toJSON();
+  .render(
+      <BrowserRouter>
+        <PlacesList
+          places = {places}
+          activeCity = {city}
+          cities = {[city]}
+          activeElement = {`Popular`}
+        />
+      </BrowserRouter>);
 
   expect(tree).toMatchSnapshot();
 });

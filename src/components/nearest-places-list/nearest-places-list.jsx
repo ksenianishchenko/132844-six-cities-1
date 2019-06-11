@@ -7,7 +7,7 @@ const NearestPlacesList = (props) => {
   return <section className="near-places places">
     <h2 className="near-places__title">Other places in the neighbourhood</h2>
     <div className="near-places__list places__list">
-      {nearestPlaces.map((it, index) => {
+      {nearestPlaces.slice(1, 4).map((it, index) => {
         return <PlaceCard
           place = {it}
           key = {`place-${index}`}

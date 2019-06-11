@@ -22,9 +22,15 @@ const ReviewsItem = (props) => {
       <p className="reviews__text">
         {review.comment}
       </p>
-      <time className="reviews__time" dateTime="2019-04-24">{review.date}</time>
+      <time className="reviews__time" dateTime={getFormattedDate(review.date)}>{getFormattedDate(review.date)}</time>
     </div>
   </li>;
+};
+
+const getFormattedDate = (date) => {
+  let newDate = new Date(date);
+  let formattedDate = newDate.getDate() + `-` + (newDate.getMonth() + 1) + `-` + newDate.getFullYear();
+  return formattedDate;
 };
 
 ReviewsItem.propTypes = {

@@ -12,7 +12,7 @@ class ReviewsList extends PureComponent {
     return <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsArray.length}</span></h2>
       <ul className="reviews__list">
-        {reviewsArray.map((it, index) => {
+        {reviewsArray.slice(0, 10).map((it, index) => {
           return <ReviewsItem
             review = {it}
             key = {`review-${index}`}

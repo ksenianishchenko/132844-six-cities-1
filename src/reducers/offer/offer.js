@@ -1,5 +1,5 @@
 const initialState = {
-  activeOffer: {},
+  activeOffer: null,
   nearestPlaces: []
 };
 

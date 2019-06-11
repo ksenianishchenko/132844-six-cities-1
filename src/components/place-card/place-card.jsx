@@ -106,7 +106,7 @@ const mapDispatchToProps = (dispatch) => ({
       return a.distance - b.distance;
     });
 
-    dispatch(ActionCreatorsOffer.getNearestPlaces(nearestPlaces.slice(1, 4)));
+    dispatch(ActionCreatorsOffer.getNearestPlaces(nearestPlaces.slice(0, 4)));
   }
 });
 
