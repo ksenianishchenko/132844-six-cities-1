@@ -1,6 +1,9 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import ReviewsList from "./reviews-list.jsx";
+import ShallowRenderer from 'react-test-renderer/shallow';
+import {ReviewsList} from "./reviews-list.jsx";
+import {createStore} from 'redux';
+import combineReducers from "../../reducers/index.js";
+import {Provider} from 'react-redux';
 
 it(`Reviews list renders correctly`, () => {
   const reviews = [
@@ -18,10 +21,14 @@ it(`Reviews list renders correctly`, () => {
     }
   ];
 
+  const renderer = new ShallowRenderer();
+  const store = createStore(combineReducers);
   const tree = renderer
-  .create(<ReviewsList
-    reviewsArray = {reviews}
-  />).toJSON();
+  .render(<Provider store={store}>
+    <ReviewsList
+      reviewsArray = {reviews}
+    />
+  </Provider>);
 
   expect(tree).toMatchSnapshot();
 });

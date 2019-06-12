@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Reviews list renders correctly 1`] = `
+exports[`Review form renders correctly 1`] = `
 <Context.Provider
   value={
     Object {
@@ -31,22 +31,7 @@ exports[`Reviews list renders correctly 1`] = `
   }
 >
   <Memo(ConnectFunction)
-    reviewsArray={
-      Array [
-        Object {
-          "comment": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-          "date": "2019-05-08T14:13:56.569Z",
-          "id": 1,
-          "rating": 4,
-          "user": Object {
-            "avatar_url": "img/1.png",
-            "id": 4,
-            "is_pro": false,
-            "name": "Max",
-          },
-        },
-      ]
-    }
+    id={3}
   />
 </Context.Provider>
 `;

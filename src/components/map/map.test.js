@@ -56,7 +56,7 @@ it(`Map renders correctly`, () => {
         activeCity = {activeCity}
         activeOffer = {activeOffer}
       />
-  );
+  ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

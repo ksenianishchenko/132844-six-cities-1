@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getActiveOffer, getNearestPlaces} from "../../reducers/offer/selectors.js";
 import {getReviews} from "../../reducers/comments/selectors.js";
-import ReviewsList from "../reviews-list/reviews-list.jsx";
+import {ReviewsList} from "../reviews-list/reviews-list.jsx";
 import NearestPlacesList from "../nearest-places-list/nearest-places-list.jsx";
 import withActiveOffer from "../../hocs/with-active-offer/with-active-offer.jsx";
 import Map from "../map/map.jsx";
@@ -102,6 +102,7 @@ class Offer extends PureComponent {
               </div>
               <ReviewsList
                 reviewsArray = {reviewsArray}
+                id = {activeOffer.id}
               />
             </div>
           </div>
