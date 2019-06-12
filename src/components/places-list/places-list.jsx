@@ -4,6 +4,7 @@ import {PlaceCard} from "../place-card/place-card.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
 import {Header} from "../header/header.jsx";
 import Map from "../map/map.jsx";
+import PlacesListEmpty from "../places-list-empty/places-list-empty.jsx";
 
 const PlacesList = (props) => {
   const {places, handleClick, activeOffer, getActiveCity, onClearOffer, activeCity, cities, sortingPlaces, activeElement, onSortPlaces, onGetActiveElement, onSortListToggle, sortListOpen} = props;
@@ -14,19 +15,7 @@ const PlacesList = (props) => {
 
   let sorting = sortingPlaces ? sortingPlaces : places;
   if (!places.length) {
-    return <div className="cities__places-wrapper">
-      <div className="cities__places-container cities__places-container--empty container">
-        <section className="cities__no-places">
-          <div className="cities__status-wrapper tabs__content">
-            <b className="cities__status">No places to stay available</b>
-            <p className="cities__status-description">We could not find any property availbale at the moment in Dusseldorf</p>
-          </div>
-        </section>
-        <div className="cities__right-section">
-          <section className="cities__map map"></section>
-        </div>
-      </div>
-    </div>;
+    return <PlacesListEmpty />;
   }
 
   return <React.Fragment>

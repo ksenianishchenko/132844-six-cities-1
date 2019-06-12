@@ -2,13 +2,17 @@ import {reducer} from "./comments.js";
 
 it(`checks initialstate of comments reducer`, () => {
   expect(reducer(undefined, {})).toEqual({
-    reviewsArray: []
+    reviewsArray: [],
+    userComment: {},
+    errorPostComment: null
   });
 });
 
 it(`checks loading comments`, () => {
   expect(reducer({
-    reviewsArray: []
+    reviewsArray: [],
+    userComment: {},
+    errorPostComment: null
   }, {
     type: `GET_REVIEWS`,
     payload: [{
@@ -19,6 +23,8 @@ it(`checks loading comments`, () => {
     reviewsArray: [{
       id: 5,
       name: `Max`
-    }]
+    }],
+    userComment: {},
+    errorPostComment: null
   });
 });
