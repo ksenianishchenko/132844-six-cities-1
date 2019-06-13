@@ -43,14 +43,14 @@ const onAuthorizationRequest = (email, password) => (dispatch, getState, api) =>
     }
 
     dispatch(ActionCreators.authorizationPostResponse(response.data));
-    dispatch(ActionCreators.requireAuthorization());
+    dispatch(ActionCreators.requireAuthorization(false));
   });
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionsType.REQUIRED_AUTHORIZATION: return Object.assign({}, state, {
-      isAuthorizationRequired: !state.isAuthorizationRequired,
+      isAuthorizationRequired: action.payload,
     });
     case ActionsType.AUTHORIZATION_POST_RESPONSE: return Object.assign({}, state, {
       authorizationPostResponse: action.payload,

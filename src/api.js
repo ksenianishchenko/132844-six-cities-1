@@ -1,4 +1,5 @@
 import axios from "axios";
+import history from './history.js';
 
 export const createAPI = () => {
   const api = axios.create({
@@ -10,7 +11,7 @@ export const createAPI = () => {
   const onSuccess = (response) => response;
   const onFail = (err) => {
     if (err.response.status === 403) {
-      history.pushState(null, null, `/login`);
+      history.push(`/login`);
     }
     return err;
   };

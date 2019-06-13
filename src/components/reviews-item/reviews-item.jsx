@@ -30,10 +30,9 @@ const ReviewsItem = (props) => {
 const getFormattedDate = (date) => {
   let newDate = new Date(date);
   let strArray = [`January`, `Febrary`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
-  let d = newDate.getDate();
   let m = strArray[newDate.getMonth()];
   let y = newDate.getFullYear();
-  return `` + m + ` ` + (d <= 9 ? `0` + d : d) + ` ` + y;
+  return `` + m + ` ` + y;
 };
 
 ReviewsItem.propTypes = {

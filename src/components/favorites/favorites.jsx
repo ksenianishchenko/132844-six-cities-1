@@ -1,6 +1,9 @@
 import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 import {Header} from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
+import {connect} from "react-redux";
+import {getFavoritesList} from "../../reducers/favorites/selectors.js";
 
 class Favorites extends PureComponent {
   constructor(props) {
@@ -8,6 +11,24 @@ class Favorites extends PureComponent {
   }
 
   render() {
+    const {favoritesList} = this.props;
+
+    if (!favoritesList.length) {
+      return <React.Fragment>
+        <Header />
+        <main className="page__main page__main--favorites page__main--favorites-empty">
+          <div className="page__favorites-container container">
+            <section className="favorites favorites--empty">
+              <h1 className="visually-hidden">Favorites (empty)</h1>
+              <div className="favorites__status-wrapper">
+                <b className="favorites__status">Nothing yet saved.</b>
+                <p className="favorites__status-description">Save properties to narrow down search or plan yor future trips.</p>
+              </div>
+            </section>
+          </div>
+        </main>
+      </ React.Fragment>;
+    }
     return <React.Fragment>
       <Header />
       <main className="page__main page__main--favorites">
@@ -141,4 +162,14 @@ class Favorites extends PureComponent {
   }
 }
 
-export default Favorites;
+Favorites.propTypes = {
+  favoritesList: PropTypes.array.isRequired
+};
+
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  favoritesList: getFavoritesList(state)
+});
+
+let connectedComponent = connect(mapStateToProps, null)(Favorites);
+
+export {connectedComponent as Favorites};
