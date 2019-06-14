@@ -7,6 +7,8 @@ import {getUsersReviews} from "../../reducers/comments/comments.js";
 import {Link} from 'react-router-dom';
 import {getCity} from "../../reducers/game/selectors.js";
 import {getOffers} from "../../reducers/data/selectors.js";
+import {sendFavorite} from "../../reducers/favorites/favorites.js";
+import {getAuthorizationStatus} from "../../reducers/user/selectors.js";
 
 class PlaceCard extends PureComponent {
   constructor(props) {
@@ -14,7 +16,7 @@ class PlaceCard extends PureComponent {
   }
 
   render() {
-    const {place, onclick, getOffer, getOfferReviews, places, getNearestPlaces} = this.props;
+    const {place, onclick, getOffer, getOfferReviews, places, getNearestPlaces, addToFavorites} = this.props;
     return <article className="cities__place-card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
@@ -28,8 +30,9 @@ class PlaceCard extends PureComponent {
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
-          </div>
-          <button className={`place-card__bookmark-button button ${place.is_favorite ? `place-card__bookmark-button--active` : ``}`} type="button">
+          </div><button className={`place-card__bookmark-button button ${place.is_favorite ? `place-card__bookmark-button--active` : ``}`} type="button" onClick={() =>
+            addToFavorites(place.id, place.is_favorite)
+          }>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -65,11 +68,14 @@ PlaceCard.propTypes = {
   getOfferReviews: PropTypes.func,
   places: PropTypes.array,
   getNearestPlaces: PropTypes.func,
+  addToFavorites: PropTypes.func,
+  isAuthorizationRequired: PropTypes.bool
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   activeOffer: getActiveOffer(state),
   places: getOffers(state).filter((place) => place.city.name === getCity(state).name),
+  isAuthorizationRequired: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -78,6 +84,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getOfferReviews: (id) => {
     dispatch(getUsersReviews(id));
+  },
+  addToFavorites: (id, status) => {
+    dispatch(sendFavorite(id, status));
   },
   getNearestPlaces: (activePlace, placesArray) => {
     const deg2rad = (deg) => {

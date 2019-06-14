@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import {PlaceCard} from "../place-card/place-card.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
-import {Header} from "../header/header.jsx";
 import Map from "../map/map.jsx";
 import PlacesListEmpty from "../places-list-empty/places-list-empty.jsx";
 
@@ -19,7 +18,6 @@ const PlacesList = (props) => {
   }
 
   return <React.Fragment>
-    <Header />
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="cities tabs">

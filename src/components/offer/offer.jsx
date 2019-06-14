@@ -1,5 +1,4 @@
 import React, {PureComponent} from "react";
-import {Header} from "../header/header.jsx";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getActiveOffer, getNearestPlaces} from "../../reducers/offer/selectors.js";
@@ -21,7 +20,6 @@ class Offer extends PureComponent {
   render() {
     const {activeOffer, reviewsArray, nearestPlaces, activeCity} = this.props;
     return <React.Fragment>
-      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">

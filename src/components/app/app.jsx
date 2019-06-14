@@ -13,6 +13,7 @@ import {Router, Switch, Route} from "react-router-dom";
 import {Favorites} from "../favorites/favorites.jsx";
 import {Offer} from "../offer/offer.jsx";
 import withSort from "../../hocs/with-sort/with-sort.jsx";
+import {Header} from "../header/header.jsx";
 import history from "../../history";
 
 const PlacesListWrapper = withSort(withActiveOffer(PlacesList));
@@ -26,6 +27,7 @@ class App extends PureComponent {
   render() {
     const {places, getActiveCity, activeCity, cities} = this.props;
     return <Router history={history}>
+      <Header />
       <Switch>
         <Route path="/login" component={AuthorizationWrapper} />
         <Route path="/" exact render = {() => <PlacesListWrapper

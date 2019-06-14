@@ -11,6 +11,6 @@ export const withPrivateRoute = ({component: Component, authed}) => (
 );
 
 withPrivateRoute.propTypes = {
-  component: PropTypes.func,
+  component: PropTypes.object,
   authed: PropTypes.bool
 };
