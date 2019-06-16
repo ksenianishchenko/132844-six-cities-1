@@ -7,7 +7,8 @@ import combineReducers from "./reducers/index.js";
 import {Operations} from "./reducers/data/data.js";
 import thunk from "redux-thunk";
 import {compose} from "recompose";
-import {createAPI} from './api.js';
+import {createAPI} from "./api.js";
+import {checkAuthorization} from "./reducers/user/user.js";
 
 
 const init = () => {
@@ -21,6 +22,7 @@ const init = () => {
   );
 
   store.dispatch(Operations.loadOffers());
+  store.dispatch(checkAuthorization());
 
   ReactDOM.render(
       <Provider store = {store}>

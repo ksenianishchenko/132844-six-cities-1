@@ -9,6 +9,7 @@ import {getCity} from "../../reducers/game/selectors.js";
 import {getOffers} from "../../reducers/data/selectors.js";
 import {sendFavorite} from "../../reducers/favorites/favorites.js";
 import {getAuthorizationStatus} from "../../reducers/user/selectors.js";
+import {mockPlaces} from "../../mocks/offers.js";
 
 class PlaceCard extends PureComponent {
   constructor(props) {
@@ -59,14 +60,14 @@ class PlaceCard extends PureComponent {
 }
 
 PlaceCard.propTypes = {
-  place: PropTypes.object.isRequired,
+  place: mockPlaces.isRequired,
   onclick: PropTypes.func,
   onMoustLeave: PropTypes.func,
   onMouseEnter: PropTypes.func,
   active: PropTypes.string,
   getOffer: PropTypes.func,
   getOfferReviews: PropTypes.func,
-  places: PropTypes.array,
+  places: PropTypes.arrayOf(mockPlaces),
   getNearestPlaces: PropTypes.func,
   addToFavorites: PropTypes.func,
   isAuthorizationRequired: PropTypes.bool

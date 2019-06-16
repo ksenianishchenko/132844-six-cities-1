@@ -1,5 +1,5 @@
 import React from "react";
-import PropsType from "prop-types";
+import {mockReview} from "../../mocks/offers.js";
 
 const ReviewsItem = (props) => {
   const {review} = props;
@@ -36,7 +36,7 @@ const getFormattedDate = (date) => {
 };
 
 ReviewsItem.propTypes = {
-  review: PropsType.object.isRequired,
+  review: mockReview.isRequired,
 };
 
 

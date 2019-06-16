@@ -47,6 +47,18 @@ const onAuthorizationRequest = (email, password) => (dispatch, getState, api) =>
   });
 };
 
+const checkAuthorization = () => {
+  return (dispatch, _getState, api) => {
+    return api.get(`/login`)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(ActionCreators.authorizationPostResponse(response.data));
+          dispatch(ActionCreators.requireAuthorization(false));
+        }
+      });
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionsType.REQUIRED_AUTHORIZATION: return Object.assign({}, state, {
@@ -62,4 +74,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionCreators, ActionsType, onAuthorizationRequest};
+export {reducer, ActionCreators, ActionsType, onAuthorizationRequest, checkAuthorization};

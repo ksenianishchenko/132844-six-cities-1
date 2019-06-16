@@ -15,6 +15,7 @@ import {Offer} from "../offer/offer.jsx";
 import withSort from "../../hocs/with-sort/with-sort.jsx";
 import {Header} from "../header/header.jsx";
 import history from "../../history";
+import {mockPlaces, mockCity} from "../../mocks/offers.js";
 
 const PlacesListWrapper = withSort(withActiveOffer(PlacesList));
 const AuthorizationWrapper = withAuthorizationForm(Authorization);
@@ -44,10 +45,10 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  places: PropTypes.array.isRequired,
+  places: PropTypes.arrayOf(mockPlaces).isRequired,
   getActiveCity: PropTypes.func.isRequired,
-  activeCity: PropTypes.object.isRequired,
-  cities: PropTypes.array.isRequired,
+  activeCity: mockCity.isRequired,
+  cities: PropTypes.arrayOf(mockCity).isRequired,
   isAuthorizationRequired: PropTypes.bool
 };
 

@@ -4,6 +4,7 @@ import {PlaceCard} from "../place-card/place-card.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
 import Map from "../map/map.jsx";
 import PlacesListEmpty from "../places-list-empty/places-list-empty.jsx";
+import {mockPlaces, mockCity} from "../../mocks/offers.js";
 
 const PlacesList = (props) => {
   const {places, handleClick, activeOffer, getActiveCity, onClearOffer, activeCity, cities, sortingPlaces, activeElement, onSortPlaces, onGetActiveElement, onSortListToggle, sortListOpen} = props;
@@ -83,14 +84,14 @@ const PlacesList = (props) => {
 };
 
 PlacesList.propTypes = {
-  places: PropTypes.array.isRequired,
+  places: PropTypes.arrayOf(mockPlaces).isRequired,
   onclick: PropTypes.func,
   handleClick: PropTypes.func,
-  activeOffer: PropTypes.object,
+  activeOffer: mockPlaces,
   getActiveCity: PropTypes.func,
   onClearOffer: PropTypes.func,
-  activeCity: PropTypes.object.isRequired,
-  cities: PropTypes.array.isRequired,
+  activeCity: mockCity.isRequired,
+  cities: PropTypes.arrayOf(mockCity).isRequired,
   activeElement: PropTypes.string.isRequired,
   sortingPlaces: PropTypes.array,
   onSortPlaces: PropTypes.func,

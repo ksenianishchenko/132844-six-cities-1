@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {getCity} from "../../reducers/game/selectors.js";
 import {getAuthorizationError, getAuthorizationStatus} from "../../reducers/user/selectors.js";
 import {Redirect} from "react-router-dom";
+import {mockCity} from "../../mocks/offers.js";
 
 class Authorization extends PureComponent {
   constructor(props) {
@@ -62,7 +63,7 @@ class Authorization extends PureComponent {
 Authorization.propTypes = {
   onFormSubmit: PropTypes.func,
   getAuthorizationPostResponse: PropTypes.func,
-  activeCity: PropTypes.object,
+  activeCity: mockCity,
   authorizationError: PropTypes.string,
   handleGetInputValue: PropTypes.func,
   userData: PropTypes.object,

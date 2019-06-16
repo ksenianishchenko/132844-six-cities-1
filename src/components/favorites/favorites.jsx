@@ -4,12 +4,13 @@ import Footer from "../footer/footer.jsx";
 import {connect} from "react-redux";
 import {getFavoritesList} from "../../reducers/favorites/selectors.js";
 import {loadFavorites, removeFavorite} from "../../reducers/favorites/favorites.js";
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {ActionCreators as ActionCreatorsOffer} from "../../reducers/offer/offer.js";
 import {getCity} from "../../reducers/game/selectors.js";
 import {getOffers} from "../../reducers/data/selectors.js";
 import {getUsersReviews} from "../../reducers/comments/comments.js";
 import {getAuthorizationStatus} from "../../reducers/user/selectors.js";
+import {mockPlaces} from "../../mocks/offers.js";
 
 class Favorites extends PureComponent {
   constructor(props) {
@@ -17,16 +18,13 @@ class Favorites extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.loadFavorites();
+    const {loadFavoritesCards} = this.props;
+    loadFavoritesCards();
   }
 
   render() {
-    const {favoritesList, getOffer, getOfferReviews, getNearestPlaces, places, removeFavoriteCards, isAuthorizationRequired} = this.props;
+    const {favoritesList, getOffer, getOfferReviews, getNearestPlaces, places, removeFavoriteCards} = this.props;
     const cities = this._handleGetFavoriteListCities(favoritesList);
-
-    if (isAuthorizationRequired) {
-      return <Redirect to="/login" />;
-    }
 
     if (!favoritesList.length) {
       return <React.Fragment>
@@ -117,12 +115,12 @@ class Favorites extends PureComponent {
 }
 
 Favorites.propTypes = {
-  favoritesList: PropTypes.array.isRequired,
-  loadFavorites: PropTypes.func,
+  favoritesList: PropTypes.arrayOf(mockPlaces).isRequired,
+  loadFavoritesCards: PropTypes.func,
   getNearestPlaces: PropTypes.func,
   getOfferReviews: PropTypes.func,
   getOffer: PropTypes.func,
-  places: PropTypes.array,
+  places: PropTypes.arrayOf(mockPlaces),
   removeFavoriteCards: PropTypes.func,
   isAuthorizationRequired: PropTypes.bool
 };
@@ -134,7 +132,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadFavorites: () => {
+  loadFavoritesCards: () => {
     dispatch(loadFavorites());
   },
   removeFavoriteCards: (id) => {

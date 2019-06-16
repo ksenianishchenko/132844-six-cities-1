@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import L from "leaflet";
+import {mockPlaces, mockCity} from "../../mocks/offers.js";
 
 const activeIcon = L.icon({
   iconUrl: `/img/map-pin-active.svg`,
@@ -97,9 +98,9 @@ class Map extends PureComponent {
 }
 
 Map.propTypes = {
-  offers: PropTypes.array.isRequired,
-  activeOffer: PropTypes.object,
-  activeCity: PropTypes.object.isRequired
+  offers: PropTypes.arrayOf(mockPlaces).isRequired,
+  activeOffer: mockPlaces,
+  activeCity: mockCity.isRequired
 };
 
 export default Map;

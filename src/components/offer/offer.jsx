@@ -7,7 +7,9 @@ import {ReviewsList} from "../reviews-list/reviews-list.jsx";
 import NearestPlacesList from "../nearest-places-list/nearest-places-list.jsx";
 import withActiveOffer from "../../hocs/with-active-offer/with-active-offer.jsx";
 import Map from "../map/map.jsx";
+import {sendFavorite, changeActiveOffer} from "../../reducers/favorites/favorites.js";
 import {getCity} from "../../reducers/game/selectors.js";
+import {mockPlaces, mockCity, mockReview} from "../../mocks/offers.js";
 
 
 const NearestPlacesListWrapper = withActiveOffer(NearestPlacesList);
@@ -18,7 +20,7 @@ class Offer extends PureComponent {
   }
 
   render() {
-    const {activeOffer, reviewsArray, nearestPlaces, activeCity} = this.props;
+    const {activeOffer, reviewsArray, nearestPlaces, activeCity, changeActiveOfferOnCLick} = this.props;
     return <React.Fragment>
       <main className="page__main page__main--property">
         <section className="property">
@@ -40,7 +42,9 @@ class Offer extends PureComponent {
                 <h1 className="property__name">
                   {activeOffer.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={`property__bookmark-button button ${activeOffer.is_favorite ? `property__bookmark-button--active` : ``}`} type="button" onClick={() =>{
+                  changeActiveOfferOnCLick(activeOffer.id, activeOffer.is_favorite);
+                }}>
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -123,30 +127,12 @@ class Offer extends PureComponent {
 }
 
 Offer.propTypes = {
-  reviewsArray: PropTypes.array.isRequired,
-  nearestPlaces: PropTypes.array.isRequired,
-  activeCity: PropTypes.object,
-  activeOffer: PropTypes.shape({
-    "id": PropTypes.number,
-    "is_premium": PropTypes.bool,
-    "is_favorite": PropTypes.bool,
-    "preview_image": PropTypes.string,
-    "images": PropTypes.array,
-    "price": PropTypes.number,
-    "rating": PropTypes.number,
-    "title": PropTypes.string,
-    "type": PropTypes.string,
-    "bedrooms": PropTypes.number,
-    "max_adults": PropTypes.number,
-    "goods": PropTypes.array,
-    "host": PropTypes.shape({
-      "id": PropTypes.number,
-      "is_pro": PropTypes.bool,
-      "name": PropTypes.string,
-      "avatar_url": PropTypes.string
-    }),
-    "description": PropTypes.string,
-  }).isRequired,
+  reviewsArray: PropTypes.arrayOf(mockReview).isRequired,
+  nearestPlaces: PropTypes.arrayOf(mockPlaces).isRequired,
+  activeCity: mockCity,
+  addToFavorites: PropTypes.func,
+  changeActiveOfferOnCLick: PropTypes.func,
+  activeOffer: mockPlaces.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -156,6 +142,15 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   activeCity: getCity(state),
 });
 
-let connectedComponent = connect(mapStateToProps, null)(Offer);
+const mapDispatchToProps = (dispatch) => ({
+  addToFavorites: (id, status) => {
+    dispatch(sendFavorite(id, status));
+  },
+  changeActiveOfferOnCLick: (place) => {
+    dispatch(changeActiveOffer(place));
+  },
+});
+
+let connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Offer);
 
 export {connectedComponent as Offer};

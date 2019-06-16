@@ -1,4 +1,5 @@
 import {Operations} from "../data/data.js";
+import {ActionCreators as ActionCreatorsOffers} from "../offer/offer.js";
 
 const initialState = {
   favoritesList: [],
@@ -24,12 +25,6 @@ const ActionCreators = {
       payload: error
     };
   },
-  pushToFavoritesList: (object) => {
-    return {
-      type: `PUSH_TO_FAVORITE`,
-      payload: object
-    };
-  }
 };
 
 const loadFavorites = () => (dispatch, getState, api) => {
@@ -65,6 +60,14 @@ const removeFavorite = (id) => (dispatch, getState, api) => {
   });
 };
 
+const changeActiveOffer = (id, isFavorite) => (dispatch, _getState, api) => {
+  const status = isFavorite ? `0` : `1`;
+  return api.post(`/favorite/${id}/${status}`)
+    .then((response) => {
+      dispatch(ActionCreatorsOffers.getActiveOffer(response.data));
+    });
+};
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -74,12 +77,9 @@ const reducer = (state = initialState, action) => {
     case ActionsType.GET_ERROR: return Object.assign({}, state, {
       error: action.payload
     });
-    case ActionsType.PUSH_TO_FAVORITE: return Object.assign({}, state, {
-      favoritesList: state.favoritesList.push(action.payload)
-    });
   }
 
   return state;
 };
 
-export {reducer, ActionCreators, ActionsType, loadFavorites, sendFavorite, removeFavorite};
+export {reducer, ActionCreators, ActionsType, loadFavorites, sendFavorite, removeFavorite, changeActiveOffer};
