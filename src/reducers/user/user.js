@@ -59,6 +59,14 @@ const checkAuthorization = () => {
   };
 };
 
+const logOutUser = (dispatch, _getState, api) => {
+  api.get(`/logout`)
+    .then(() => {
+      dispatch(ActionCreators.requireAuthorization(true));
+      dispatch(ActionCreators.authorizationPostResponse(null));
+    });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionsType.REQUIRED_AUTHORIZATION: return Object.assign({}, state, {
@@ -74,4 +82,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionCreators, ActionsType, onAuthorizationRequest, checkAuthorization};
+export {reducer, ActionCreators, ActionsType, onAuthorizationRequest, checkAuthorization, logOutUser};
