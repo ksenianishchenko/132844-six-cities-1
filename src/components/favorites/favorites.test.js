@@ -1,19 +1,20 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import Favorites from "./favorites.jsx";
+import {Favorites} from "./favorites.jsx";
 import {createStore} from 'redux';
 import combineReducers from "../../reducers/index.js";
 import {Provider} from 'react-redux';
 import {BrowserRouter} from "react-router-dom";
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 it(`Favorites page renders correctly`, () => {
   const store = createStore(combineReducers);
+  const renderer = new ShallowRenderer();
   const tree = renderer
-  .create(<Provider store={store}>
+  .render(<Provider store={store}>
     <BrowserRouter>
       <Favorites/>
     </BrowserRouter>
-  </Provider>).toJSON();
+  </Provider>);
 
   expect(tree).toMatchSnapshot();
 });

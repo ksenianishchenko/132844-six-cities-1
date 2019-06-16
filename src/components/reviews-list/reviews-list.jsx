@@ -5,6 +5,7 @@ import {ReviewForm} from "../review-form/review-form.jsx";
 import {connect} from "react-redux";
 import {getAuthorizationStatus} from "../../reducers/user/selectors.js";
 import withReviewForm from "../../hocs/with-review-form/with-review-form.jsx";
+import {mockReview} from "../../mocks/offers.js";
 
 const ReviewFormWrapper = withReviewForm(ReviewForm);
 
@@ -36,7 +37,7 @@ class ReviewsList extends PureComponent {
 }
 
 ReviewsList.propTypes = {
-  reviewsArray: PropTypes.array.isRequired,
+  reviewsArray: PropTypes.arrayOf(mockReview).isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
   id: PropTypes.number
 };

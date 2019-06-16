@@ -7,8 +7,9 @@ import combineReducers from "./reducers/index.js";
 import {Operations} from "./reducers/data/data.js";
 import thunk from "redux-thunk";
 import {compose} from "recompose";
-import {createAPI} from './api.js';
-import {BrowserRouter} from "react-router-dom";
+import {createAPI} from "./api.js";
+import {checkAuthorization} from "./reducers/user/user.js";
+
 
 const init = () => {
   const api = createAPI();
@@ -21,12 +22,11 @@ const init = () => {
   );
 
   store.dispatch(Operations.loadOffers());
+  store.dispatch(checkAuthorization());
 
   ReactDOM.render(
       <Provider store = {store}>
-        <BrowserRouter>
-          <App/>
-        </BrowserRouter>
+        <App/>
       </Provider>,
       document.getElementById(`root`)
   );

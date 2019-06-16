@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {PlaceCard} from "../place-card/place-card.jsx";
+import {mockPlaces} from "../../mocks/offers.js";
 
 const NearestPlacesList = (props) => {
   const {nearestPlaces} = props;
@@ -18,7 +19,7 @@ const NearestPlacesList = (props) => {
 };
 
 NearestPlacesList.propTypes = {
-  nearestPlaces: PropTypes.array.isRequired,
+  nearestPlaces: PropTypes.arrayOf(mockPlaces).isRequired,
 };
 
 export default NearestPlacesList;

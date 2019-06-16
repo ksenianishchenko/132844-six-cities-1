@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {postUserReview} from "../../reducers/comments/comments.js";
 import {getErrorPostComment} from "../../reducers/comments/selectors.js";
 import PropTypes from "prop-types";
+import {mockReview} from "../../mocks/offers.js";
 
 class ReviewForm extends PureComponent {
   constructor(props) {
@@ -58,7 +59,7 @@ class ReviewForm extends PureComponent {
 ReviewForm.propTypes = {
   submitUserReview: PropTypes.func,
   id: PropTypes.number,
-  review: PropTypes.object,
+  review: mockReview,
   onTextAreaClick: PropTypes.func,
   onRadioClick: PropTypes.func,
   onResetForm: PropTypes.func,

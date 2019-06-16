@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {mockCity} from "../../mocks/offers.js";
 
 class CitiesList extends PureComponent {
   constructor(props) {
@@ -34,9 +35,9 @@ class CitiesList extends PureComponent {
 }
 
 CitiesList.propTypes = {
-  cities: PropTypes.array.isRequired,
+  cities: PropTypes.arrayOf(mockCity).isRequired,
   onclick: PropTypes.func,
-  activeCity: PropTypes.object.isRequired,
+  activeCity: mockCity.isRequired,
 };
 
 export default CitiesList;
