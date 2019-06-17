@@ -3,12 +3,17 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getAuthorizationPostResponse, getAuthorizationStatus} from "../../reducers/user/selectors.js";
 import {Link} from 'react-router-dom';
-import {logOutUser} from "../../reducers/user/user.js";
+import {logOutUser, checkAuthorization} from "../../reducers/user/user.js";
 import history from "../../history.js";
 
 class Header extends PureComponent {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    const {checkAuthorizationStatus} = this.props;
+    checkAuthorizationStatus();
   }
 
   render() {
@@ -64,7 +69,8 @@ Header.propTypes = {
     "is_pro": PropTypes.boll
   }),
   isAuthorizationRequired: PropTypes.bool,
-  logOutAuthorizedUser: PropTypes.func
+  logOutAuthorizedUser: PropTypes.func,
+  checkAuthorizationStatus: PropTypes.func
 };
 
 
@@ -77,6 +83,9 @@ const mapDispatchToProps = (dispatch) => ({
   logOutAuthorizedUser: () => {
     dispatch(logOutUser);
   },
+  checkAuthorizationStatus: () => {
+    dispatch(checkAuthorization);
+  }
 });
 
 let connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Header);

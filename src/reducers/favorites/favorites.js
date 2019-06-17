@@ -31,6 +31,7 @@ const loadFavorites = () => (dispatch, getState, api) => {
   return api.get(`/favorite`).
   then((response) => {
     dispatch(ActionCreators.loadFavorites(response.data));
+  }).catch(() => {
   });
 };
 
@@ -65,6 +66,7 @@ const changeActiveOffer = (id, isFavorite) => (dispatch, _getState, api) => {
   return api.post(`/favorite/${id}/${status}`)
     .then((response) => {
       dispatch(ActionCreatorsOffers.getActiveOffer(response.data));
+    }).catch(() => {
     });
 };
 

@@ -47,16 +47,15 @@ const onAuthorizationRequest = (email, password) => (dispatch, getState, api) =>
   });
 };
 
-const checkAuthorization = () => {
-  return (dispatch, _getState, api) => {
-    return api.get(`/login`)
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(ActionCreators.authorizationPostResponse(response.data));
-          dispatch(ActionCreators.requireAuthorization(false));
-        }
-      });
-  };
+const checkAuthorization = (dispatch, _getState, api) => {
+  api.get(`/login`)
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(ActionCreators.authorizationPostResponse(response.data));
+        dispatch(ActionCreators.requireAuthorization(false));
+      }
+    }).catch(() => {
+    });
 };
 
 const logOutUser = (dispatch, _getState, api) => {
@@ -64,6 +63,7 @@ const logOutUser = (dispatch, _getState, api) => {
     .then(() => {
       dispatch(ActionCreators.requireAuthorization(true));
       dispatch(ActionCreators.authorizationPostResponse(null));
+    }).catch(() => {
     });
 };
 
