@@ -11,6 +11,7 @@ class Authorization extends PureComponent {
   constructor(props) {
     super(props);
   }
+
   render() {
     const {getAuthorizationPostResponse, activeCity, userData, handleGetInputValue, isAuthorizationRequired, authorizationError} = this.props;
 
@@ -66,7 +67,10 @@ Authorization.propTypes = {
   activeCity: mockCity,
   authorizationError: PropTypes.string,
   handleGetInputValue: PropTypes.func,
-  userData: PropTypes.object,
+  userData: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string
+  }),
   isAuthorizationRequired: PropTypes.bool
 };
 
@@ -79,7 +83,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 const mapDispatchToProps = (dispatch) => ({
   getAuthorizationPostResponse: (email, password) => {
     dispatch(onAuthorizationRequest(email, password));
-  },
+  }
 });
 
 

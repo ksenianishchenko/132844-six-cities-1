@@ -57,7 +57,7 @@ const PlacesList = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {sorting.slice(0, 6).map((item, index) => {
+              {sorting.map((item, index) => {
                 return <PlaceCard
                   place = {item}
                   onclick = {(card) => {
@@ -93,7 +93,7 @@ PlacesList.propTypes = {
   activeCity: mockCity.isRequired,
   cities: PropTypes.arrayOf(mockCity).isRequired,
   activeElement: PropTypes.string.isRequired,
-  sortingPlaces: PropTypes.array,
+  sortingPlaces: PropTypes.arrayOf(mockPlaces),
   onSortPlaces: PropTypes.func,
   onGetActiveElement: PropTypes.func,
   onSortListToggle: PropTypes.func,

@@ -35,6 +35,7 @@ const getUsersReviews = (id) => (dispatch, getState, api) => {
   return api.get(`/comments/${id}`)
   .then((response) => {
     dispatch(ActionCreators.getReviews(response.data));
+  }).catch(() => {
   });
 };
 

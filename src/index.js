@@ -12,13 +12,18 @@ import {createAPI} from "./api.js";
 
 const init = () => {
   const api = createAPI();
-  const store = createStore(
-      combineReducers,
-      compose(
-          applyMiddleware(thunk.withExtraArgument(api)),
-          window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-      )
-  );
+  let store;
+  if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+    store = createStore(
+        combineReducers,
+        compose(
+            applyMiddleware(thunk.withExtraArgument(api)),
+            window.__REDUX_DEVTOOLS_EXTENSION__()
+        )
+    );
+  } else {
+    store = createStore(combineReducers, applyMiddleware(thunk.withExtraArgument(api)));
+  }
 
   store.dispatch(Operations.loadOffers());
 

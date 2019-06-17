@@ -20,6 +20,7 @@ const Operations = {
     return api.get(`/hotels`).
     then((response) => {
       dispatch(ActionCreators.loadOffers(response.data));
+    }).catch(() => {
     });
   }
 };
