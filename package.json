@@ -2,12 +2,15 @@
   "name": "six-cities",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://ksenianishchenko.github.io/132844-six-cities-1",
   "description": "Личный проект «Шесть городов» от HTML Academy",
   "scripts": {
     "eslint": "eslint src/**/*.js src/**/*.jsx",
     "test": "npm run eslint && jest",
     "build": "webpack --mode development",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@babel/core": "7.4.4",
@@ -33,6 +36,7 @@
   },
   "dependencies": {
     "axios": "0.19.0",
+    "gh-pages": "^2.1.1",
     "history": "4.9.0",
     "leaflet": "1.5.1",
     "prop-types": "15.7.2",
