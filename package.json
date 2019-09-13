@@ -7,7 +7,7 @@
   "scripts": {
     "eslint": "eslint src/**/*.js src/**/*.jsx",
     "test": "npm run eslint && jest",
-    "build": "webpack --mode development",
+    "build": "webpack --mode production",
     "start": "webpack-dev-server",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
@@ -31,8 +31,7 @@
     "webpack-dev-server": "3.3.1"
   },
   "engines": {
-    "npm": "5.7.1",
-    "node": "9.5.0"
+    "node": "10"
   },
   "dependencies": {
     "axios": "0.19.0",
